@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -18,6 +19,28 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:spring-data.xml")
 public class EmployeeRepositoryTest {
+    @Test
+    public void findByNameInOrAgeLessThan() throws Exception {
+        List<String> list = new ArrayList<String>();
+        list.add("test16");
+        list.add("LUBAN");
+        list.add("DIRENJIE");
+        List<Employee> employeeList = repository.findByNameInOrAgeLessThan(list,20);
+        for (Employee employee : employeeList) {
+            System.out.println(employee);
+        }
+        Assert.assertTrue(employeeList.size()>0);
+    }
+
+    @Test
+    public void findByNameStartingWithAndAgeLessThan() throws Exception {
+        List<Employee> employeeList = repository.findByNameStartingWithAndAgeLessThan("test",20);
+        for (Employee employee : employeeList) {
+            System.out.println(employee);
+        }
+        Assert.assertTrue(employeeList.size()>0);
+    }
+
     @Test
     public void findAll() throws Exception {
         List<Employee> employeeList = repository.findAllByNameIsNotNullOrderByAge();

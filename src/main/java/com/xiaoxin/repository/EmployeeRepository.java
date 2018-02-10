@@ -25,4 +25,20 @@ public interface EmployeeRepository {
      */
     List<Employee> findAllByNameIsNotNullOrderByAge();
 
+    /**
+     *  where name like ?% and age < ?
+     * @param startWith 名字以startWith 开头
+     * @param lessThan 年龄小于 lessThan
+     * @return 满足查询条件的结果
+     */
+    List<Employee> findByNameStartingWithAndAgeLessThan(String startWith, Integer lessThan);
+
+    /**
+     *  where name in(?,?...) or age < ?
+     *  查询在指定姓名集或者年龄不小于指定值的{@link Employee}
+     * @param names 指定的姓名集合
+     * @param age 指定的年龄
+     * @return 满足查询条件的结果
+     */
+    List<Employee> findByNameInOrAgeLessThan(List<String> names,Integer age);
 }
