@@ -15,15 +15,14 @@ public interface EmployeeRepository {
     /**
      * 根据名称查询
      * @param name 要查询的名字
-     * @return
+     * @return 返回查询到的Employee对象
      */
     Employee findByName(String name);
 
     /**
      * 查询所有Employee
-     * @return
+     * @return 返回所有Employee 姓名不为空
      */
-    
     List<Employee> findAllByNameIsNotNullOrderByAge();
 
 }
