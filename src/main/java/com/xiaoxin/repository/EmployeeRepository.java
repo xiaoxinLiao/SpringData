@@ -1,10 +1,12 @@
 package com.xiaoxin.repository;
 
 import com.xiaoxin.domain.Employee;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.RepositoryDefinition;
 import org.springframework.data.repository.query.Param;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -100,10 +102,23 @@ public interface EmployeeRepository {
 
     /**
      * 原生查询方法，使用表查询 将nativeQuery属性置为True
+     *
      * @return 条数
      */
-    @Query(nativeQuery = true, value = "SELECT count(1) from employee")
+    @Query(nativeQuery = true, value = "SELECT count(1) FROM employee")
     long getCount();
 
+    /**
+     * 根据Id更新数据
+     * 必须添加注解 @Modifying
+     * @param id 更新条件
+     * @param age 更新的字段
+     * @return 影响的行数
+     */
+    @Modifying
+    @Query("update Employee o set o.age = :age where o.id = :id")
+    int updateById(@Param("id") Integer id, @Param("age") Integer age);
 }
+
+
 
